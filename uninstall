@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+echo "Removing dotfiles symlinks..."
+
+# Only remove if it's a symlink (don't delete real files)
+remove_link() {
+    if [ -L "$1" ]; then
+        rm "$1"
+        echo "  Removed $1"
+    else
+        echo "  Skipped $1 (not a symlink)"
+    fi
+}
+
+remove_link "$HOME/.zshrc"
+remove_link "$HOME/.p10k.zsh"
+remove_link "$HOME/.hushlogin"
+remove_link "$HOME/.tmux.conf"
+remove_link "$HOME/.config/nvim"
+remove_link "$HOME/.nvm/default-packages"
+remove_link "$HOME/.config/lazygit/config.yml"
+remove_link "$HOME/.claude/settings.json"
+remove_link "$HOME/.editorconfig"
+remove_link "$HOME/.local/bin/t"
+
+echo ""
+echo "Done. Symlinks removed."
+echo "Note: Homebrew packages, Oh My Zsh, and TPM were left in place."
+echo "To fully clean up, you may also want to:"
+echo "  - brew bundle cleanup --file ./homebrew/Brewfile --force"
+echo "  - rm -rf ~/.oh-my-zsh"
+echo "  - rm -rf ~/.tmux/plugins/tpm"

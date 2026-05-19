@@ -2,3 +2,4 @@
 .claude
 *.git
 *.DS_Store
+zsh/custom/local.zsh

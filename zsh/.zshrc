@@ -122,14 +122,18 @@ alias zshconfig="nvim ~/.zshrc"
 
 export GOPATH=$HOME/go
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  #
+
+# Lazy-load NVM to avoid ~200ms startup penalty
+__load_nvm() {
+  unset -f nvm node npm npx yarn
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+}
+
+nvm()  { __load_nvm && nvm  "$@"; }
+node() { __load_nvm && node "$@"; }
+npm()  { __load_nvm && npm  "$@"; }
+npx()  { __load_nvm && npx  "$@"; }
+yarn() { __load_nvm && yarn "$@"; }
 export PATH="$HOME/.local/bin:$PATH"
 
-eval "$(pyenv init -)"
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/damiyusuf/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions

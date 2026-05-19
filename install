@@ -4,7 +4,11 @@ echo "Setting up your Mac..."
 
 DOTFILES=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
+link_file() { rm -rf "$2" && ln -sf "$1" "$2" && echo "Linked $1 → $2"; }
+
 # Check if Xcode Command Line Tools are installed
+echo ""
+echo "==> Checking Xcode Command Line Tools..."
 if ! xcode-select -p &>/dev/null; then
   echo "Xcode Command Line Tools not found. Installing..."
   xcode-select --install
@@ -13,68 +17,102 @@ else
 fi
 
 # Check for Oh My Zsh and install if we don't have it
+echo ""
+echo "==> Checking Oh My Zsh..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/HEAD/tools/install.sh)"
+else
+  echo "Oh My Zsh already installed."
 fi
 
 # Check for Homebrew and install if we don't have it
+echo ""
+echo "==> Checking Homebrew..."
 if test ! "$(which brew)"; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
   eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  echo "Homebrew already installed."
 fi
 
-# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
-rm -rf $HOME/.zshrc
-ln -sw $DOTFILES/zsh/.zshrc $HOME/.zshrc
-
-# Removes .p10k.zsh theme file from $HOME (if it exists) and symlinks the .p10k.zsh file from the .dotfiles
-rm -rf $HOME/.p10k.zsh
-ln -sw $DOTFILES/zsh/.p10k.zsh $HOME/.p10k.zsh
-
-# remove and link .hushlogin
-rm -rf $HOME/.hushlogin
-ln -sw $DOTFILES/.hushlogin $HOME/.hushlogin
+# Zsh configuration
+echo ""
+echo "==> Linking Zsh configuration..."
+link_file $DOTFILES/zsh/.zprofile $HOME/.zprofile
+link_file $DOTFILES/zsh/.zshrc $HOME/.zshrc
+link_file $DOTFILES/zsh/.p10k.zsh $HOME/.p10k.zsh
+link_file $DOTFILES/.hushlogin $HOME/.hushlogin
 
 # Tmux
-ln -sf $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+echo ""
+echo "==> Linking Tmux configuration..."
+link_file $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
 # Scripts
+echo ""
+echo "==> Linking scripts..."
 mkdir -p $HOME/.local/bin
-
-ln -sf $DOTFILES/scripts/t $HOME/.local/bin/t
+link_file $DOTFILES/scripts/t $HOME/.local/bin/t
+link_file $DOTFILES/scripts/nvim-health $HOME/.local/bin/nvim-health
+link_file $DOTFILES/scripts/update $HOME/.local/bin/update
 
 # NVIM
-rm -rf $HOME/.config/nvim
-ln -sw $DOTFILES/nvim $HOME/.config/nvim
+echo ""
+echo "==> Linking Neovim configuration..."
+link_file $DOTFILES/nvim $HOME/.config/nvim
 
 # Update Homebrew
+echo ""
+echo "==> Updating Homebrew and installing dependencies..."
 brew update
 
 # Install all our dependencies with bundle (See Brewfile)
 brew bundle --file ./homebrew/Brewfile
 
 # NVM (Node Version Manager)
+echo ""
+echo "==> Linking NVM configuration..."
 mkdir -p $HOME/.nvm
-ln -sf $DOTFILES/nvm/default-packages $HOME/.nvm/default-packages
+link_file $DOTFILES/nvm/default-packages $HOME/.nvm/default-packages
 
 # Lazygit
+echo ""
+echo "==> Linking Lazygit configuration..."
 mkdir -p $HOME/.config/lazygit
-ln -sf $DOTFILES/lazygit/config.yml $HOME/.config/lazygit/config.yml
+link_file $DOTFILES/lazygit/config.yml $HOME/.config/lazygit/config.yml
 
 # Claude
+echo ""
+echo "==> Linking Claude configuration..."
 mkdir -p $HOME/.claude
-ln -sf $DOTFILES/.claude/settings.json $HOME/.claude/settings.json
+link_file $DOTFILES/.claude/settings.json $HOME/.claude/settings.json
 
 # Editorconfig
-ln -sf $DOTFILES/.editorconfig $HOME/.editorconfig
+echo ""
+echo "==> Linking Editorconfig..."
+link_file $DOTFILES/.editorconfig $HOME/.editorconfig
 
 # Tmux Plugin Manager
+echo ""
+echo "==> Checking Tmux Plugin Manager..."
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
   git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+else
+  echo "Tmux Plugin Manager already installed."
 fi
+
+# macOS defaults (optional - uncomment to apply developer-friendly system preferences)
+source $DOTFILES/macos/defaults.sh
+
+# Git
+echo ""
+echo "==> Linking Git configuration..."
+link_file $DOTFILES/git/gitconfig $HOME/.gitconfig
+link_file $DOTFILES/git/.gitignore_global $HOME/.gitignore_global
 
 # Create a projects directories
 mkdir -p $HOME/Code
 
+echo ""
+echo "Done! 🎉"

@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+# nvim-health: Verify Neovim setup is working correctly after installation.
+
+passed=0
+failed=0
+
+check() {
+  local label="$1"
+  local condition="$2"
+
+  if eval "$condition" &>/dev/null; then
+    echo "  ✓ $label"
+    ((passed++))
+  else
+    echo "  ✗ $label"
+    ((failed++))
+  fi
+}
+
+echo "Neovim Health Check"
+echo "==================="
+echo ""
+
+# 1. nvim installed and version
+echo "Editor:"
+if command -v nvim &>/dev/null; then
+  version=$(nvim --version | head -1)
+  echo "  ✓ nvim ($version)"
+  ((passed++))
+else
+  echo "  ✗ nvim (not found)"
+  ((failed++))
+fi
+echo ""
+
+# 2. LSP servers
+echo "LSP Servers:"
+check "lua-language-server" "command -v lua-language-server"
+check "typescript-language-server" "command -v typescript-language-server"
+check "bash-language-server" "command -v bash-language-server"
+check "vscode-langservers-extracted" "command -v vscode-css-languageserver || command -v vscode-html-languageserver || npm list -g vscode-langservers-extracted"
+check "intelephense" "command -v intelephense"
+check "vue-language-server" "command -v vue-language-server"
+check "tailwindcss-language-server" "command -v tailwindcss-language-server"
+echo ""
+
+# 3. Formatters
+echo "Formatters:"
+check "prettierd" "command -v prettierd"
+check "eslint_d" "command -v eslint_d"
+echo ""
+
+# 4. tree-sitter CLI
+echo "Parsers:"
+check "tree-sitter" "command -v tree-sitter"
+echo ""
+
+# 5. ripgrep (needed by Telescope)
+echo "Search:"
+check "ripgrep (rg)" "command -v rg"
+echo ""
+
+# 6. fzf
+echo "Fuzzy Finder:"
+check "fzf" "command -v fzf"
+echo ""
+
+# 7. nvim config directory
+echo "Configuration:"
+check "~/.config/nvim exists" "[ -d $HOME/.config/nvim ]"
+echo ""
+
+# 8. lazy-lock.json (plugins installed)
+echo "Plugins:"
+check "lazy-lock.json exists" "[ -f $HOME/.config/nvim/lazy-lock.json ]"
+echo ""
+
+# Summary
+total=$((passed + failed))
+echo "==================="
+echo "Results: $passed/$total passed, $failed/$total failed"
+
+if [ "$failed" -eq 0 ]; then
+  echo "All checks passed!"
+  exit 0
+else
+  echo "Some checks failed. Run the install script or install missing tools."
+  exit 1
+fi

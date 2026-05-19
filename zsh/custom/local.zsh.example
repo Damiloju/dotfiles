@@ -1,0 +1,13 @@
+# Machine-specific configuration
+# Copy this file to local.zsh and customize for this machine.
+# local.zsh is gitignored and won't be committed.
+
+# Example: machine-specific environment variables
+# export WORK_DIR="$HOME/work"
+# export AWS_PROFILE="dev"
+
+# Example: machine-specific aliases
+# alias proj="cd ~/specific-project"
+
+# Example: machine-specific PATH additions
+# path=($HOME/custom-tools/bin $path)

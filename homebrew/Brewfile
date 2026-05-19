@@ -1,35 +1,40 @@
-# Development
-brew 'nvm'
+# Taps
+# (add any custom taps here if needed in future)
+
+# Languages & Runtimes
+brew 'deno'
+brew 'go'
 brew 'lua'
-brew 'lua-language-server'
 brew 'luarocks'
-brew 'kubectl'
-brew 'awscli'
-brew 'socat'
-brew 'vscode-langservers-extracted'
+brew 'nvm'
 brew 'pyenv'
 brew 'pyenv-virtualenv'
-brew 'go'
-brew 'ncurses'
-brew 'pipx'
-brew 'graphviz'
-brew 'postgresql@14'
-brew 'buf'
-brew 'lazygit'
-cask 'ngrok'
 
-# Apps
-brew 'neovim'
-brew 'tmux'
-brew 'fzf'
-brew 'ripgrep'
+# Development Tools
+brew 'awscli'
+brew 'buf'
 brew 'cmake'
-brew 'deno'
+brew 'fzf'
+brew 'graphviz'
+brew 'kubectl'
+brew 'lazygit'
+brew 'ncurses'
+brew 'neovim'
+brew 'pipx'
+brew 'ripgrep'
+brew 'socat'
+brew 'tmux'
 brew 'wget'
 
-# Services
-brew 'redis'
-brew 'rabbitmq'
+# LSP & Language Servers
+brew 'lua-language-server'
+brew 'vscode-langservers-extracted'
 
-# fonts
+# Services
+brew 'postgresql@14'
+brew 'rabbitmq'
+brew 'redis'
+
+# Casks
 cask 'font-fira-code'
+cask 'ngrok'

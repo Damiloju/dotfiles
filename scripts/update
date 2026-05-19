@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "🔄 Updating dotfiles environment..."
+echo ""
+
+# Homebrew
+echo "🍺 Updating Homebrew..."
+brew update
+brew upgrade
+brew cleanup
+echo ""
+
+# Neovim plugins
+echo "📝 Updating Neovim plugins..."
+nvim --headless "+Lazy! sync" +qa
+echo ""
+
+# NVM & Node
+if command -v nvm &> /dev/null || [ -s "$NVM_DIR/nvm.sh" ]; then
+    echo "📗 Checking for Node.js updates..."
+    source "$NVM_DIR/nvm.sh"
+    nvm install --lts --reinstall-packages-from=current
+    echo ""
+fi
+
+# TPM plugins
+if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "🖥️  Updating tmux plugins..."
+    $HOME/.tmux/plugins/tpm/bin/update_plugins all
+    echo ""
+fi
+
+# Oh My Zsh
+if [ -d "$HOME/.oh-my-zsh" ]; then
+    echo "🐚 Updating Oh My Zsh..."
+    (cd "$HOME/.oh-my-zsh" && git pull --rebase --quiet)
+    echo ""
+fi
+
+echo "✅ All updates complete!"
