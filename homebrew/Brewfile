@@ -1,0 +1,35 @@
+# Development
+brew 'nvm'
+brew 'lua'
+brew 'lua-language-server'
+brew 'luarocks'
+brew 'kubectl'
+brew 'awscli'
+brew 'socat'
+brew 'vscode-langservers-extracted'
+brew 'pyenv'
+brew 'pyenv-virtualenv'
+brew 'go'
+brew 'ncurses'
+brew 'pipx'
+brew 'graphviz'
+brew 'postgresql@14'
+brew 'buf'
+brew 'lazygit'
+cask 'ngrok'
+
+# Apps
+brew 'neovim'
+brew 'tmux'
+brew 'fzf'
+brew 'ripgrep'
+brew 'cmake'
+brew 'deno'
+brew 'wget'
+
+# Services
+brew 'redis'
+brew 'rabbitmq'
+
+# fonts
+cask 'font-fira-code'
