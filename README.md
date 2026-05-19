@@ -21,14 +21,16 @@ A single `./install` script symlinks configs into place and installs all depende
 
 | | Module | Description |
 |---|--------|-------------|
-| 🐚 | **zsh** | Oh My Zsh + Powerlevel10k, autosuggestions, syntax highlighting, custom aliases |
+| 🐚 | **zsh** | Oh My Zsh + Powerlevel10k, autosuggestions, syntax highlighting, lazy NVM, custom aliases |
 | 📝 | **nvim** | Neovim with Lazy.nvim — LSP, Treesitter, Telescope, Neo-tree, DAP & 40+ plugins |
-| 🖥️ | **tmux** | Vi-mode, mouse support, session persistence (resurrect/continuum), TPM |
+| 🖥️ | **tmux** | Vi-mode, true color, mouse support, session persistence (resurrect/continuum), modular config |
 | 🍺 | **homebrew** | Brewfile with CLI tools, languages, services, and fonts |
 | 🦥 | **lazygit** | Tokyo Night-themed lazygit config |
-| ⚡ | **scripts** | `t` — fzf-powered tmux session switcher for `~/Code` projects |
+| ⚡ | **scripts** | `t` (tmux session switcher), `update` (update all tools), `nvim-health` (setup checker) |
 | 📗 | **nvm** | Default global npm packages (LSP servers, formatters, linters) |
 | 🖼️ | **iterm** | Exported iTerm2 profile backup |
+| 🔧 | **git** | Git config with aliases, global gitignore |
+| 🍎 | **macos** | macOS system preferences script (keyboard, Finder, Dock, screenshots) |
 | 📐 | **editorconfig** | 2-space indent (4 for PHP/Python), LF endings, UTF-8 |
 | 🤖 | **claude** | Claude Code settings → `~/.claude/settings.json` *(gitignored)* |
 
@@ -49,14 +51,29 @@ chmod +x install
 | 1️⃣ | Install Xcode Command Line Tools (if missing) |
 | 2️⃣ | Install Oh My Zsh (if missing) |
 | 3️⃣ | Install Homebrew (if missing) |
-| 4️⃣ | Symlink dotfiles (`~/.zshrc`, `~/.p10k.zsh`, `~/.tmux.conf`, `~/.config/nvim`, etc.) |
+| 4️⃣ | Symlink dotfiles (`~/.zshrc`, `~/.zprofile`, `~/.p10k.zsh`, `~/.tmux.conf`, `~/.config/nvim`, etc.) |
 | 5️⃣ | Run `brew bundle` to install everything in the Brewfile |
 | 6️⃣ | Set up NVM with default packages |
-| 7️⃣ | Symlink lazygit & editorconfig |
+| 7️⃣ | Symlink lazygit, editorconfig, & git config |
 | 8️⃣ | Clone TPM (Tmux Plugin Manager) |
-| 9️⃣ | Create `~/Code` workspace directory |
+| 9️⃣ | Apply macOS system preferences |
+| 🔟 | Create `~/Code` workspace directory |
 
 </details>
+
+### 🧰 Makefile
+
+You can also install modules selectively:
+
+```sh
+make brew        # Just install Homebrew packages
+make nvim        # Just symlink Neovim config
+make tmux        # Just set up tmux
+make zsh         # Just link zsh config
+make nvm         # Just set up NVM defaults
+make update      # Update everything (brew, nvim plugins, tpm, omz)
+make clean       # Remove all symlinks (uninstall)
+```
 
 ---
 
@@ -64,23 +81,41 @@ chmod +x install
 
 ```
 .
-├── 🍺 homebrew/Brewfile          # Homebrew dependencies
-├── ⚙️  install                    # Bootstrap script
-├── 🖼️  iterm/backup.itermexport   # iTerm2 profile
-├── 🦥 lazygit/config.yml         # Lazygit theme
-├── 📝 nvim/                      # Neovim config (Lazy.nvim)
+├── 🍺 homebrew/Brewfile           # Homebrew dependencies
+├── ⚙️  install                     # Bootstrap script
+├── 🗑️  uninstall                   # Remove all symlinks
+├── 📋 Makefile                    # Selective install targets
+├── 🖼️  iterm/backup.itermexport    # iTerm2 profile
+├── 🦥 lazygit/config.yml          # Lazygit theme
+├── 🔧 git/
+│   ├── gitconfig                  # Git aliases & settings
+│   └── .gitignore_global          # Global ignores
+├── 🍎 macos/
+│   └── defaults.sh               # macOS system preferences
+├── 📝 nvim/                       # Neovim config (Lazy.nvim)
 │   ├── init.lua
-│   ├── lua/user/                 # Options, keymaps, plugin specs
-│   └── snippets/                 # Snippets (TS, TSX)
-├── 📗 nvm/default-packages       # Global npm packages
-├── ⚡ scripts/t                  # Tmux session switcher
-├── 🖥️  tmux/tmux.conf            # Tmux config
+│   ├── lua/user/                  # Options, keymaps, plugin specs
+│   └── snippets/                  # Snippets (TS, TSX)
+├── 📗 nvm/default-packages        # Global npm packages
+├── ⚡ scripts/
+│   ├── t                          # Tmux session switcher
+│   ├── update                     # Update all tools
+│   └── nvim-health                # Neovim setup health check
+├── 🖥️  tmux/
+│   ├── tmux.conf                  # Core settings
+│   ├── theme.conf                 # Status line & colors
+│   ├── keybindings.conf           # Key bindings
+│   └── plugins.conf               # TPM plugin declarations
 ├── 🐚 zsh/
-│   ├── .zshrc                    # Shell config
-│   ├── .p10k.zsh                # Powerlevel10k theme
-│   └── custom/aliases.zsh        # Custom aliases
-├── 📐 .editorconfig              # Editor formatting rules
-└── 🤫 .hushlogin                 # Suppress login banner
+│   ├── .zprofile                  # Login shell (Homebrew)
+│   ├── .zshrc                     # Shell config
+│   ├── .p10k.zsh                 # Powerlevel10k theme
+│   └── custom/
+│       ├── aliases.zsh            # Custom aliases
+│       ├── tools.zsh              # pyenv & Docker init
+│       └── local.zsh.example      # Machine-specific template
+├── 📐 .editorconfig               # Editor formatting rules
+└── 🤫 .hushlogin                  # Suppress login banner
 ```
 
 ---
@@ -122,6 +157,25 @@ chmod +x install
 | `..` / `...` / `....` | `cd` up 1/2/3 levels | 🔼 Quick navigation |
 | `ll` | `ls -lAFh` | 📋 Detailed file listing |
 | `mkcd <dir>` | `mkdir -p && cd` | 📁 Create & enter directory |
+
+---
+
+## 🔄 Maintenance
+
+```sh
+update          # Run from anywhere — updates brew, nvim plugins, tpm, omz
+nvim-health     # Check that LSP servers, formatters, and tools are installed
+```
+
+---
+
+## 🖥️ Machine-Specific Overrides
+
+Create `zsh/custom/local.zsh` (gitignored) for settings that shouldn't be committed:
+
+```sh
+cp zsh/custom/local.zsh.example zsh/custom/local.zsh
+```
 
 ---
 
