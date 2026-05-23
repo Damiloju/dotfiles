@@ -76,6 +76,14 @@ echo "==> Linking NVM configuration..."
 mkdir -p $HOME/.nvm
 link_file $DOTFILES/nvm/default-packages $HOME/.nvm/default-packages
 
+# Ensure NVM is loaded
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+echo "Ensuring all default global packages are installed..."
+# Reads your file, ignores comments/empty lines, and installs if missing
+grep -v '^#' "$NVM_DIR/default-packages" | grep -v '^$' | xargs npm install -g
+
 # Lazygit
 echo ""
 echo "==> Linking Lazygit configuration..."
