@@ -1,7 +1,8 @@
 [user]
-    name = Dami Yusuf
-    # email should be set per-machine
-    email =
+    name = Damiloju
+
+[include]
+    path = ~/.gitconfig.local
 
 [init]
     defaultBranch = main
