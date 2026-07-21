@@ -25,6 +25,7 @@ brew 'ripgrep'
 brew 'socat'
 brew 'tmux'
 brew 'wget'
+brew 'gh'
 
 # LSP & Language Servers
 brew 'lua-language-server'
