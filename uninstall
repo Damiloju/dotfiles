@@ -13,6 +13,7 @@ remove_link() {
 }
 
 remove_link "$HOME/.zshrc"
+remove_link "$HOME/.zprofile"
 remove_link "$HOME/.p10k.zsh"
 remove_link "$HOME/.hushlogin"
 remove_link "$HOME/.tmux.conf"
@@ -21,7 +22,12 @@ remove_link "$HOME/.nvm/default-packages"
 remove_link "$HOME/.config/lazygit/config.yml"
 remove_link "$HOME/.claude/settings.json"
 remove_link "$HOME/.editorconfig"
+remove_link "$HOME/.gitconfig"
+remove_link "$HOME/.gitignore_global"
 remove_link "$HOME/.local/bin/t"
+remove_link "$HOME/.local/bin/nvim-health"
+remove_link "$HOME/.local/bin/update"
+remove_link "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
 
 echo ""
 echo "Done. Symlinks removed."

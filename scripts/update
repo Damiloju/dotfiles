@@ -14,7 +14,7 @@ echo ""
 
 # Neovim plugins
 echo "📝 Updating Neovim plugins..."
-nvim --headless "+Lazy! sync" +qa
+nvim --headless "+Lazy sync" +qa
 echo ""
 
 # NVM & Node
@@ -35,7 +35,7 @@ fi
 # Oh My Zsh
 if [ -d "$HOME/.oh-my-zsh" ]; then
     echo "🐚 Updating Oh My Zsh..."
-    (cd "$HOME/.oh-my-zsh" && git pull --rebase --quiet)
+    "$ZSH/tools/upgrade.sh"
     echo ""
 fi
 

@@ -38,6 +38,7 @@ brew 'redis'
 
 # Casks
 cask 'font-fira-code'
+cask 'font-fira-code-nerd-font'
 cask 'ngrok'
 cask 'ghostty'
 

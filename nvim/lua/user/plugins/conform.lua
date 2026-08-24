@@ -7,6 +7,7 @@ return {
       javascriptreact = { "eslint_d", "prettier", stop_after_first = true },
       typescript = { "eslint_d", "prettier", stop_after_first = true },
       typescriptreact = { "eslint_d", "prettier", stop_after_first = true },
+      vue = { "eslint_d", "prettier", stop_after_first = true },
     },
     format_on_save = {
       -- These options will be passed to conform.format()

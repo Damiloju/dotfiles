@@ -47,7 +47,7 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 
 # Set icon size to 48 pixels
-defaults write com.apple.dock tilesize -int 
+defaults write com.apple.dock tilesize -int 48
 
 # Minimize windows into their application icon
 defaults write com.apple.dock minimize-to-application -bool true

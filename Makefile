@@ -1,6 +1,6 @@
 DOTFILES := $(shell cd "$(dir $(abspath $(lastword $(MAKEFILE_LIST))))" && pwd)
 
-.PHONY: install brew nvim tmux zsh nvm update clean
+.PHONY: install brew nvim tmux zsh nvm ghostty update clean
 
 install:
 	@bash $(DOTFILES)/install
@@ -32,16 +32,26 @@ nvm:
 	@mkdir -p $(HOME)/.nvm
 	ln -sf $(DOTFILES)/nvm/default-packages $(HOME)/.nvm/default-packages
 
+ghostty:
+	@mkdir -p "$(HOME)/Library/Application Support/com.mitchellh.ghostty"
+	ln -sf $(DOTFILES)/ghostty/config.ghostty "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+
 update:
 	brew upgrade
-	nvim --headless "+Lazy! sync" +qa
+	nvim --headless "+Lazy sync" +qa
 	$(HOME)/.tmux/plugins/tpm/bin/update_plugins all
 
 clean:
 	@echo "Removing symlinks..."
 	@rm -f $(HOME)/.zshrc
+	@rm -f $(HOME)/.zprofile
 	@rm -f $(HOME)/.p10k.zsh
 	@rm -f $(HOME)/.tmux.conf
 	@rm -rf $(HOME)/.config/nvim
 	@rm -f $(HOME)/.nvm/default-packages
+	@rm -f $(HOME)/.gitconfig
+	@rm -f $(HOME)/.gitignore_global
+	@rm -f $(HOME)/.local/bin/nvim-health
+	@rm -f $(HOME)/.local/bin/update
+	@rm -f "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
 	@echo "Done. Symlinks removed."
