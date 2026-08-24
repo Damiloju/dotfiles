@@ -9,6 +9,7 @@
 ![Tmux](https://img.shields.io/badge/Tmux-1BB91F?style=for-the-badge&logo=tmux&logoColor=white)
 ![Zsh](https://img.shields.io/badge/Zsh-F15A24?style=for-the-badge&logo=zsh&logoColor=white)
 ![Lua](https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white)
+![Ghostty](https://img.shields.io/badge/Ghostty-000000?style=for-the-badge&logo=ghostty&logoColor=white)
 
 Dotfiles for bootstrapping and backing up my Mac development environment.
 A single `./install` script symlinks configs into place and installs all dependencies via Homebrew.
@@ -28,6 +29,7 @@ A single `./install` script symlinks configs into place and installs all depende
 | 🦥 | **lazygit** | Tokyo Night-themed lazygit config |
 | ⚡ | **scripts** | `t` (tmux session switcher), `update` (update all tools), `nvim-health` (setup checker) |
 | 📗 | **nvm** | Default global npm packages (LSP servers, formatters, linters) |
+| 👻 | **ghostty** | Ghostty terminal config |
 | 🖼️ | **iterm** | Exported iTerm2 profile backup |
 | 🔧 | **git** | Git config with aliases, global gitignore |
 | 🍎 | **macos** | macOS system preferences script (keyboard, Finder, Dock, screenshots) |
@@ -51,7 +53,7 @@ chmod +x install
 | 1️⃣ | Install Xcode Command Line Tools (if missing) |
 | 2️⃣ | Install Oh My Zsh (if missing) |
 | 3️⃣ | Install Homebrew (if missing) |
-| 4️⃣ | Symlink dotfiles (`~/.zshrc`, `~/.zprofile`, `~/.p10k.zsh`, `~/.tmux.conf`, `~/.config/nvim`, etc.) |
+| 4️⃣ | Symlink dotfiles (`~/.zshrc`, `~/.zprofile`, `~/.p10k.zsh`, `~/.tmux.conf`, `~/.config/nvim`, Ghostty config, etc.) |
 | 5️⃣ | Run `brew bundle` to install everything in the Brewfile |
 | 6️⃣ | Set up NVM with default packages |
 | 7️⃣ | Symlink lazygit, editorconfig, & git config |
@@ -85,6 +87,8 @@ make clean       # Remove all symlinks (uninstall)
 ├── ⚙️  install                     # Bootstrap script
 ├── 🗑️  uninstall                   # Remove all symlinks
 ├── 📋 Makefile                    # Selective install targets
+├── 👻 ghostty/
+│   └── config.ghostty             # Ghostty terminal config
 ├── 🖼️  iterm/backup.itermexport    # iTerm2 profile
 ├── 🦥 lazygit/config.yml          # Lazygit theme
 ├── 🔧 git/
@@ -113,7 +117,9 @@ make clean       # Remove all symlinks (uninstall)
 │   └── custom/
 │       ├── aliases.zsh            # Custom aliases
 │       ├── tools.zsh              # pyenv & Docker init
-│       └── local.zsh.example      # Machine-specific template
+│       ├── local.zsh.example      # Machine-specific template
+│       ├── plugins/               # Oh My Zsh plugins
+│       └── themes/                # Oh My Zsh themes
 ├── 📐 .editorconfig               # Editor formatting rules
 └── 🤫 .hushlogin                  # Suppress login banner
 ```
