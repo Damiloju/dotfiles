@@ -1,5 +1,7 @@
 gui:
   nerdFontsVersion: "3"
+  # Taller command log (default 8 lines)
+  commandLogSize: 10
   theme:
     activeBorderColor:
       - "#7aa2f7"
