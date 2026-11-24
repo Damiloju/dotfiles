@@ -26,12 +26,12 @@ A single `./install` script symlinks configs into place and installs all depende
 | 📝 | **nvim** | Neovim with Lazy.nvim — LSP, Treesitter, Telescope, Neo-tree, DAP & 40+ plugins |
 | 🖥️ | **tmux** | Vi-mode, true color, mouse support, session persistence (resurrect/continuum, auto-boot in Ghostty), modular config |
 | 🍺 | **homebrew** | Brewfile with CLI tools, languages, services, Colima (Docker runtime), and fonts |
-| 🦥 | **lazygit** | Tokyo Night-themed lazygit config |
+| 🦥 | **lazygit** | Tokyo Night-themed lazygit config with Nerd Font icons and delta diffs |
 | ⚡ | **scripts** | `t` (tmux session switcher), `update` (update all tools), `nvim-health` (setup checker) — linked into `~/.local/bin` |
 | 📗 | **nvm** | Default global npm packages (LSP servers, formatters, linters) |
 | 👻 | **ghostty** | Ghostty terminal config |
 | 🖼️ | **iterm** | Exported iTerm2 profile backup |
-| 🔧 | **git** | Git config with aliases, global gitignore |
+| 🔧 | **git** | Git config with aliases, delta theme, global gitignore |
 | 🍎 | **macos** | macOS system preferences script (keyboard, Finder, Dock, screenshots) |
 | 📐 | **editorconfig** | 2-space indent (4 for PHP/Python), LF endings, UTF-8 |
 | 🐳 | **docker** | Docker via [Colima](https://github.com/abiosoft/colima) instead of Docker Desktop (`DOCKER_HOST` set in `.zshrc`) |
@@ -93,9 +93,9 @@ make clean       # Remove all symlinks (uninstall)
 ├── 👻 ghostty/
 │   └── config.ghostty             # Ghostty terminal config
 ├── 🖼️  iterm/backup.itermexport    # iTerm2 profile
-├── 🦥 lazygit/config.yml          # Lazygit theme
+├── 🦥 lazygit/config.yml          # Lazygit theme & delta diffs
 ├── 🔧 git/
-│   ├── gitconfig                  # Git aliases & settings
+│   ├── gitconfig                  # Git aliases, settings & delta theme
 │   └── .gitignore_global          # Global ignores
 ├── 🍎 macos/
 │   └── defaults.sh               # macOS system preferences
@@ -142,7 +142,7 @@ make clean       # Remove all symlinks (uninstall)
 
 ### 🔧 CLI Tools
 
-`ripgrep` · `fzf` · `lazygit` · `gh` · `awscli` · `kubectl` · `colima` · `docker` · `buf` · `pipx` · `cmake` · `graphviz` · `wget` · `ngrok`
+`ripgrep` · `fzf` · `lazygit` · `git-delta` · `gh` · `awscli` · `kubectl` · `colima` · `docker` · `buf` · `pipx` · `cmake` · `graphviz` · `wget` · `ngrok`
 
 ### 🔤 Fonts
 

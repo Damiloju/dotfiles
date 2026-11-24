@@ -25,3 +25,12 @@ gui:
       - "#db4b4b"
     defaultFgColor:
       - "#c0caf5"
+
+git:
+  # Cycle renderers with `|` (forward) and `\` (reverse).
+  # Delta styling lives in the [delta] section of git/gitconfig.
+  diffRenderers:
+    - name: delta
+      command: delta --dark --paging=never --line-numbers {{if gt .width 160}}--side-by-side{{end}}
+    - type: rawGit
+      name: default
