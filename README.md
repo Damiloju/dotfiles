@@ -161,7 +161,7 @@ Start the Docker runtime with `colima start`.
 
 ### ✏️ Neovim Highlights
 
-> 🎨 **Tokyo Night** colorscheme · 🔭 **Telescope** fuzzy finder · 🌳 **Neo-tree** & **Oil** file management · 🧠 **LSP** (TypeScript, Lua, Bash, Vue, PHP, JSON, CSS/HTML) · 💡 **nvim-cmp** completions · 🧹 **conform.nvim** formatting (ESLint/Prettier, incl. Vue) · 🔍 **nvim-lint** · 🐛 **DAP** debugging · 🧪 **Neotest** · 📊 **Gitsigns** & **Fugitive** · 📑 **Bufferline** · 🚀 **Lualine** · ⌨️ **which-key** · 📸 **CodeSnap** screenshots
+> 🎨 **Tokyo Night** colorscheme · 🔭 **Telescope** fuzzy finder · 🌳 **Neo-tree** & **Oil** file management · 🧠 **LSP** (TypeScript, Lua, Bash, PHP, JSON, CSS/HTML) · 💡 **nvim-cmp** completions · 🧹 **conform.nvim** formatting (ESLint/Prettier, incl. Vue) · 🔍 **nvim-lint** · 🐛 **DAP** debugging · 🧪 **Neotest** · 📊 **Gitsigns** & **Fugitive** · 📑 **Bufferline** · 🚀 **Lualine** · ⌨️ **which-key** · 📸 **CodeSnap** screenshots
 
 ---
 
