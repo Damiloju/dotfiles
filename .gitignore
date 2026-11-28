@@ -4,3 +4,4 @@
 *.DS_Store
 zsh/custom/local.zsh
 .claude/worktrees/
+claude/settings.private.json

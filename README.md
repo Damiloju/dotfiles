@@ -36,7 +36,7 @@ A single `./install` script symlinks configs into place and installs all depende
 | 🍎 | **macos** | macOS system preferences script (keyboard, Finder, Dock, screenshots) |
 | 📐 | **editorconfig** | 2-space indent (4 for PHP/Python), LF endings, UTF-8 |
 | 🐳 | **docker** | Docker via [Colima](https://github.com/abiosoft/colima) instead of Docker Desktop (`DOCKER_HOST` set in `.zshrc`) |
-| 🤖 | **claude** | Claude Code settings → `~/.claude/settings.json` *(gitignored)* |
+| 🤖 | **claude** | Claude Code settings, status line & personal instructions (`CLAUDE.md`) → `~/.claude/`; machine-specific settings (e.g. work plugins) go in gitignored `claude/settings.private.json`, loaded via the `claude` alias |
 
 ---
 
@@ -78,6 +78,7 @@ make nvm         # Just set up NVM defaults
 make ghostty     # Just link Ghostty config
 make rex         # Just link Rex config & apply app settings
 make lazygit     # Just link lazygit config
+make claude      # Just link Claude Code settings
 make git         # Just link git config
 make update      # Quick update (brew, nvim plugins, tpm)
 make clean       # Remove all symlinks (uninstall)
@@ -102,6 +103,11 @@ make clean       # Remove all symlinks (uninstall)
 │   ├── keybindings.lua            # tmux-style Ctrl+B key bindings
 │   ├── settings.sh                # App settings (font, cursor, padding)
 │   └── themes/dotfiles.ghostty    # Colour palette imported into Rex
+├── 🤖 claude/
+│   ├── CLAUDE.md                  # Personal instructions for Claude (all projects)
+│   ├── settings.json              # Claude Code settings (shareable)
+│   ├── settings.private.json.example  # Template for gitignored per-machine settings
+│   └── statusline.sh              # Claude Code status line
 ├── 🦥 lazygit/config.yml          # Lazygit theme & delta diffs
 ├── 🔧 git/
 │   ├── gitconfig                  # Git aliases, settings & delta theme

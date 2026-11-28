@@ -1,6 +1,6 @@
 DOTFILES := $(shell cd "$(dir $(abspath $(lastword $(MAKEFILE_LIST))))" && pwd)
 
-.PHONY: install brew nvim tmux zsh nvm ghostty rex lazygit git update clean
+.PHONY: install brew nvim tmux zsh nvm ghostty rex lazygit git claude update clean
 
 install:
 	@bash $(DOTFILES)/install
@@ -52,6 +52,12 @@ git:
 	ln -sf $(DOTFILES)/git/.gitignore_global $(HOME)/.gitignore_global
 	@[ -f $(HOME)/.gitconfig.local ] || printf '[user]\n    email =\n' > $(HOME)/.gitconfig.local
 
+claude:
+	@mkdir -p $(HOME)/.claude
+	ln -sf $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
+	ln -sf $(DOTFILES)/claude/statusline.sh $(HOME)/.claude/statusline.sh
+	ln -sf $(DOTFILES)/claude/CLAUDE.md $(HOME)/.claude/CLAUDE.md
+
 update:
 	brew upgrade
 	nvim --headless "+Lazy! sync" +qa
@@ -69,6 +75,9 @@ clean:
 	@rm -f $(HOME)/.gitconfig
 	@rm -f $(HOME)/.gitignore_global
 	@rm -f $(HOME)/.config/lazygit/config.yml
+	@rm -f $(HOME)/.claude/settings.json
+	@rm -f $(HOME)/.claude/statusline.sh
+	@rm -f $(HOME)/.claude/CLAUDE.md
 	@rm -f $(HOME)/.local/bin/nvim-health
 	@rm -f $(HOME)/.local/bin/update
 	@rm -f "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config.ghostty"

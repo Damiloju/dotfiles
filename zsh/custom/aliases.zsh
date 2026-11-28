@@ -16,3 +16,6 @@ mkcd() { mkdir -p "$1" && cd "$1"; }
 
 # Editor
 export EDITOR=nvim
+
+# Claude Code: layer machine-specific settings (gitignored) on top of the shared ones
+[ -f "$DOTFILES/claude/settings.private.json" ] && alias claude="claude --settings $DOTFILES/claude/settings.private.json"

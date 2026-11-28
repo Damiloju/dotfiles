@@ -110,7 +110,9 @@ link_file $DOTFILES/lazygit/config.yml $HOME/.config/lazygit/config.yml
 echo ""
 echo "==> Linking Claude configuration..."
 mkdir -p $HOME/.claude
-link_file $DOTFILES/.claude/settings.json $HOME/.claude/settings.json
+link_file $DOTFILES/claude/settings.json $HOME/.claude/settings.json
+link_file $DOTFILES/claude/statusline.sh $HOME/.claude/statusline.sh
+link_file $DOTFILES/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
 
 # Editorconfig
 echo ""

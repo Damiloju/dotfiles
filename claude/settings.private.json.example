@@ -1,0 +1,13 @@
+{
+  "enabledPlugins": {
+    "my-plugin@my-company-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "my-company-plugins": {
+      "source": {
+        "source": "git",
+        "url": "git@github.com:my-company/claude-plugins.git"
+      }
+    }
+  }
+}
